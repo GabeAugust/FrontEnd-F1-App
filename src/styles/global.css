@@ -94,7 +94,11 @@
     }
 
     .button-menu{
-      @apply cursor-pointer text-[14px] text-muted hover:text-heading active:border-b-2 active:border-b-f1-red active:text-f1-red;
+      @apply cursor-pointer border-b-2 border-transparent py-2  text-[14px] text-muted hover:text-heading;
+    }
+
+    .button-menu-active {
+      @apply border-f1-red text-f1-red;
     }
 
     .header-actions {
@@ -158,6 +162,26 @@
 
     .page-section {
       @apply min-h-screen bg-background;
+    }
+
+    .temporary-page {
+      @apply flex min-h-screen flex-col items-start justify-center bg-background px-6 pt-20 text-body;
+    }
+
+    .temporary-page-label {
+      @apply mb-3 text-sm font-medium uppercase tracking-[0.2em] text-f1-red;
+    }
+
+    .temporary-page h1 {
+      @apply text-4xl font-bold text-heading;
+    }
+
+    .temporary-page p {
+      @apply mt-3 max-w-xl text-muted;
+    }
+
+    .temporary-page-link {
+      @apply mt-6 rounded-button bg-f1-red px-4 py-2 font-medium text-white hover:bg-f1-red-hover;
     }
 
     .dark-theme {
