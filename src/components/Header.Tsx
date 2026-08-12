@@ -1,13 +1,28 @@
 import { Sun, Search, Users, Moon } from "lucide-react";
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Header = () => {
- 
-  const [theme, setTheme] = useState(true)
+type HeaderProps = {
+  isDark: boolean;
+  onToggleTheme: () => void;
+}
+const Header = ({
+  isDark,
+  onToggleTheme
+}: HeaderProps) => {
+
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <div className="header items-center flex flex-row justify-between px-6 fixed z-50">
-      <img src="../src/assets/f1.png" className="w-10 pl-2" />
-      <ul className="flex flex-row gap-4 ">
+    <header className={scrolled ? "header-scrolled" : "header"}>
+      <img src="../src/assets/f1.png" className="header-logo" alt="Fórmula 1" />
+
+      <ul className="header-menu">
         <li><a className="button-menu">Home</a></li>
         <li><a className="button-menu">Pilotos</a></li>
         <li><a className="button-menu">Equipes</a></li>
@@ -16,27 +31,27 @@ const Header = () => {
         <li><a className="button-menu">Resultados</a></li>
       </ul>
 
-      <div className="flex flex-row items-center gap-4">
-        <button className="group flex flex-row gap-3 px-2 py-3 w-30 items-center border-none rounded-sm cursor-pointer hover:bg-active transition-all duration-400 ease-in-out">
-          <Search className="size-3.5 text-muted group-hover:text-white " />
-          <p className="text-[12px] text-muted group-hover:text-white">Pesquisar</p>
+      <div className="header-actions">
+        <button className="search-button" type="button" aria-label="Pesquisar">
+          <Search />
+          <p>Pesquisar</p>
         </button>
-        <button onClick={() => setTheme(!theme)} className="group w-7 h-7 rounded-md hover:bg-active flex items-center justify-center cursor-pointer transition-all duration-400 ease-in-out">
-          { theme 
-           ? <Sun className="size-3.5 text-muted  group-hover:text-white "/> 
-           : <Moon className="size-3.5 text-muted  group-hover:text-white "/>
-           }
+        <button
+          type="button"
+          onClick={onToggleTheme}
+          className="theme-toggle"
+          aria-label={isDark ? "Ativar tema claro" : "Ativar tema escuro"}>
+          {isDark
+            ? <Sun className="header-action-icon" />
+            : <Moon className="header-action-icon" />
+          }
         </button>
 
-        <button className="group w-7 h-7 rounded-md hover:bg-active flex items-center justify-center cursor-pointer transition-all duration-400 ease-in-out">
-          <Users className="size-3.5 text-muted  group-hover:text-white" />
+        <button className="user-button" type="button" aria-label="Abrir perfil">
+          <Users />
         </button>
-        
-        
       </div>
-     
-
-    </div>
+    </header>
   );
 }
 

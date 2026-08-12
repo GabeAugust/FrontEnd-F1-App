@@ -20,6 +20,15 @@
   --color-body: #d4d4d8;
   --color-muted: #a1a1aa;
   --color-active: #1a1a1a;
+  --color-theme-control: #a1a1aa;
+  --color-theme-control-bg: transparent;
+  --color-theme-control-border: transparent;
+  --color-theme-control-hover: #fafafa;
+  --color-theme-control-hover-bg: #1a1a1a;
+
+  /* Hero */
+  --hero-side-overlay: linear-gradient(90deg, rgb(0 0 0 / 0.95) 0%, rgb(0 0 0 / 0.70) 42%, rgb(0 0 0 / 0.30) 75%, rgb(0 0 0 / 0.55) 100%);
+  --hero-bottom-overlay: linear-gradient(to bottom, transparent 0%, rgb(9 9 11 / 0.70) 45%, #09090b 100%);
 
   /* Feedback */
   --color-success: #22c55e;
@@ -38,12 +47,20 @@
 }
 
 @layer base{
+
+   *,
+  *::before,
+  *::after {
+    @apply transition-colors duration-300;
+  } 
+
    html {
     color-scheme: dark;
   }
 
   body {
     @apply min-h-screen bg-background font-sans text-body antialiased;
+    transition: background-color 200ms ease, color 200ms ease;
   }
 }
 
@@ -52,8 +69,24 @@
           @apply text-4xl font-bold text-f1-red;
     }
 
+    .app {
+      @apply min-h-screen bg-background text-body;
+    }
+
     .header{
-       @apply w-full py-2 flex flex-row gap-2 bg-transparent;
+       @apply fixed z-50 flex w-full flex-row items-center justify-between gap-2 border-b border-border/60 bg-transparent px-6 py-2 shadow-[0_8px_22px_rgb(0_0_0/0.10)];
+    }
+
+    .header-scrolled{
+      @apply fixed z-50 flex w-full flex-row items-center justify-between gap-2 border-b border-border/70 bg-surface/95 px-6 py-2 shadow-[0_10px_26px_rgb(0_0_0/0.14)] backdrop-blur-md;
+    }
+
+    .header-logo {
+      @apply w-10 pl-2;
+    }
+
+    .header-menu {
+      @apply flex flex-row gap-4;
     }
 
     .text{
@@ -61,7 +94,132 @@
     }
 
     .button-menu{
-      @apply text-[14px] text-muted cursor-pointer hover:text-white active:text-f1-red active:border-b-f1-red active:border-b-2;
+      @apply cursor-pointer text-[14px] text-muted hover:text-heading active:border-b-2 active:border-b-f1-red active:text-f1-red;
+    }
+
+    .header-actions {
+      @apply flex flex-row items-center gap-4;
+    }
+
+    .search-button {
+      @apply flex w-30 cursor-pointer flex-row items-center gap-3 rounded-sm border-none px-2 py-3 transition-all duration-400 ease-in-out hover:bg-active;
+    }
+
+    .search-button svg {
+      @apply size-3.5 text-muted;
+    }
+
+    .search-button p {
+      @apply text-[12px] text-muted;
+    }
+
+    .search-button:hover svg,
+    .search-button:hover p {
+      @apply text-heading;
+    }
+
+    .hero {
+      @apply relative min-h-screen bg-cover bg-center bg-no-repeat;
+      background-image: var(--hero-side-overlay), url('../assets/f1-bg.jpg');
+    }
+
+    .hero-bottom-fade {
+      @apply pointer-events-none absolute inset-x-0 bottom-0 h-[45vh];
+      background-image: var(--hero-bottom-overlay);
+    }
+
+    .theme-toggle {
+      @apply flex size-7 cursor-pointer items-center justify-center rounded-md transition-all duration-300 ease-in-out;
+      color: var(--color-theme-control);
+      background-color: var(--color-theme-control-bg);
+      border: 1px solid var(--color-theme-control-border);
+    }
+
+    .theme-toggle:hover {
+      color: var(--color-theme-control-hover);
+      background-color: var(--color-theme-control-hover-bg);
+    }
+
+    .header-action-icon {
+      @apply size-3.5;
+    }
+
+    .user-button {
+      @apply flex size-7 cursor-pointer items-center justify-center rounded-md transition-all duration-400 ease-in-out hover:bg-active;
+    }
+
+    .user-button svg {
+      @apply size-3.5 text-muted;
+    }
+
+    .user-button:hover svg {
+      @apply text-heading;
+    }
+
+    .page-section {
+      @apply min-h-screen bg-background;
+    }
+
+    .dark-theme {
+      color-scheme: dark;
+
+      /* Backgrounds */
+      --color-background: #09090b;
+      --color-surface: #111113;
+      --color-surface-muted: #18181b;
+
+      /* Borders */
+      --color-border: #27272a;
+      --color-border-light: #3f3f46;
+
+      /* Text */
+      --color-heading: #fafafa;
+      --color-body: #d4d4d8;
+      --color-muted: #a1a1aa;
+      --color-active: #1a1a1a;
+      --color-theme-control: #a1a1aa;
+      --color-theme-control-bg: transparent;
+      --color-theme-control-border: transparent;
+      --color-theme-control-hover: #fafafa;
+      --color-theme-control-hover-bg: #1a1a1a;
+
+      /* Hero */
+      --hero-side-overlay: linear-gradient(90deg, rgb(0 0 0 / 0.95) 0%, rgb(0 0 0 / 0.70) 42%, rgb(0 0 0 / 0.30) 75%, rgb(0 0 0 / 0.55) 100%);
+      --hero-bottom-overlay: linear-gradient(to bottom, transparent 0%, rgb(9 9 11 / 0.70) 45%, #09090b 100%);
+
+      /* Shadows */
+      --shadow-card: 0 10px 30px rgb(0 0 0 / 0.25);
+    }
+
+    .light-theme {
+      color-scheme: light;
+
+      /* Backgrounds */
+      --color-background: #F8F8F8;
+      --color-surface: #ffffff;
+      --color-surface-muted: #e4e4e7;
+
+      /* Borders */
+      --color-border: #d4d4d8;
+      --color-border-light: #a1a1aa;
+
+      /* Text */
+      --color-heading: #18181b;
+      --color-body: #3f3f46;
+      --color-muted: #71717a;
+      --color-active: #e4e4e7;
+      --color-theme-control: #52525b;
+      --color-theme-control-bg: transparent;
+      --color-theme-control-border: transparent;
+      --color-theme-control-hover: #000000;
+      --color-theme-control-hover-bg: #ffffff;
+
+      /* Hero */
+      --hero-side-overlay: linear-gradient(90deg, rgb(255 255 255 / 0.42) 0%, rgb(255 255 255 / 0.18) 32%, transparent 58%);
+      --hero-bottom-overlay: linear-gradient(to bottom, transparent 25%, rgb(244 244 245 / 0.45) 68%, #f4f4f5 100%);
+
+      /* Shadows */
+      --shadow-card: 0 10px 30px rgb(24 24 27 / 0.12);
     }
 
 }
