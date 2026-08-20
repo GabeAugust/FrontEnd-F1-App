@@ -132,6 +132,27 @@
       background-image: var(--hero-bottom-overlay);
     }
 
+    .home-page-content{
+      @apply relative flex min-h-screen items-center px-6 sm:px-10 lg:px-20;
+    }
+
+    .home-secondary-button {
+      background-color: var(--color-active);
+    }
+
+    .scroll-indicator {
+      @apply absolute bottom-8 left-1/2 -translate-x-1/2 opacity-60;
+    }
+
+    .scroll-mouse {
+      @apply flex h-8 w-5 justify-center rounded-full border-2 border-white/40 pt-1;
+    }
+
+    .scroll-mouse-wheel {
+      @apply h-1.5 w-1 rounded-full bg-white/80;
+      animation: mouse-scroll 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
     .theme-toggle {
       @apply flex size-7 cursor-pointer items-center justify-center rounded-md transition-all duration-300 ease-in-out;
       color: var(--color-theme-control);
@@ -246,4 +267,47 @@
       --shadow-card: 0 10px 30px rgb(24 24 27 / 0.12);
     }
 
+    .light-theme .home-secondary-button {
+      background-color: #e4e4e724;
+    }
+
+    .light-theme .home-subscribe{
+      color: #ffffff;
+    }
+
+    .light-theme .home-button-arrow {
+      color: #ffffff;
+    }
+
+    .light-theme .home-hero-title {
+      color: #ffffff;
+    }
+
+}
+
+@keyframes mouse-scroll {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateY(0.25rem);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(0.3rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-mouse-wheel {
+    animation: none;
+  }
 }
